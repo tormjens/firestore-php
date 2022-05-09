@@ -8,13 +8,7 @@ trait ModifiesDocument
 {
     public function fetch()
     {
-        $this->document = $this->collection->getResource()->get(
-            join('/', [
-                $this->collection->buildPath(),
-                $this->collection->getCollectionId(),
-                $this->id
-            ])
-        );
+        $this->document = $this->collection->getResource()->get($this->buildPath($this->id));
 
         return $this;
     }
@@ -29,28 +23,26 @@ trait ModifiesDocument
             )
         );
 
-        $this->document = $this->collection->getResource()->patch(
-            join('/', [
-                $this->collection->buildPath(),
-                $this->collection->getCollectionId(),
-                $this->id
-            ]),
-            $this->document
-        );
+        $this->document = $this->collection->getResource()->patch($this->buildPath($this->id), $this->document);
 
         return $this;
     }
 
     public function delete()
     {
-        $this->document = $this->collection->getResource()->delete(
-            join('/', [
-                $this->collection->buildPath(),
-                $this->collection->getCollectionId(),
-                $this->id
-            ])
-        );
+        $this->document = $this->collection->getResource()->delete($this->buildPath($this->id));
 
         return true;
+    }
+
+    protected function buildPath($id)
+    {
+        $path = [
+            $this->collection->buildPath(),
+            $this->collection->getCollectionId(),
+            $id
+        ];
+
+        return join('/', $path);
     }
 }
