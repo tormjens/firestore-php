@@ -11,9 +11,8 @@ class Collection extends Request
 {
     public function buildPath()
     {
-        $parentId = Str::replace('/' . $this->getCollectionId(), '', $this->parameters);
-
-        return Str::finish(resolve(ServiceAccount::class)->getParentId(), '/') . $parentId;
+        $parentId = Str::replace(['/' . $this->getCollectionId(), $this->getCollectionId()], '', $this->parameters);
+        return resolve(ServiceAccount::class)->getParentId() . ($parentId ? "/{$parentId}" : '');
     }
 
     public function getCollectionId()
