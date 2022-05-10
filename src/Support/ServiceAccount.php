@@ -8,8 +8,10 @@ class ServiceAccount
 
     public function get()
     {
-        if(!static::$serviceAccount) {
-            static::$serviceAccount = json_decode(file_get_contents(base_path(env('FIREBASE_CREDENTIALS'))));
+        if (!static::$serviceAccount) {
+            if (config('firestore.service_account_file') && file_exists($filePath = base_path(config('firestore.service_account_file')))) {
+                static::$serviceAccount = json_decode(file_get_contents($filePath));
+            }
         }
 
         return static::$serviceAccount;
