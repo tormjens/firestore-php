@@ -13,6 +13,11 @@ class FirestoreServiceProvider extends ServiceProvider
     {
         $this->app->singleton(FirestoreApi::class);
         $this->app->singleton(Firestore::class);
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/firestore.php',
+            'firestore'
+        );
     }
 
     public function boot()
@@ -20,11 +25,6 @@ class FirestoreServiceProvider extends ServiceProvider
         $this->publishes([
             'firestore' => config_path('firestore.php'),
         ], 'firestore');
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/firestore.php',
-            'firestore'
-        );
     }
 
 }
