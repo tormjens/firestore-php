@@ -15,9 +15,8 @@ class FirestoreApi
 
     public function __construct()
     {
-        $this->buildGoogleClient();
-
         $this->serviceAccount = resolve(ServiceAccount::class);
+        $this->buildGoogleClient();
     }
 
     protected function buildGoogleClient()
