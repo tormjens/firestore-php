@@ -6,21 +6,26 @@ use Google\Client;
 use Google\Service\Firestore;
 use Illuminate\Support\Str;
 use TorMorten\Firestore\Requests\Collection;
+use TorMorten\Firestore\Support\ServiceAccount;
 
 class FirestoreApi
 {
     protected Firestore $client;
+    protected ServiceAccount $serviceAccount;
 
     public function __construct()
     {
         $this->buildGoogleClient();
+
+        $this->serviceAccount = resolve(ServiceAccount::class);
     }
 
     protected function buildGoogleClient()
     {
         $client = new Client();
-        $client->setAuthConfig(base_path(config('firestore.service_account_file')));
-
+        if ($this->serviceAccount->get()) {
+            $client->setAuthConfig(base_path(config('firestore.service_account_file')));
+        }
         $client->setApplicationName("TorMorten\\Firestore");
         $client->setScopes(['https://www.googleapis.com/auth/datastore']);
 

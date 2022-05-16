@@ -22,7 +22,8 @@ class Collection extends Request
 
     public function documents()
     {
-        return new CollectionReference($this->resource->listDocuments($this->buildPath(), $this->getCollectionId()), $this);
+        $collectionResponse = $this->resource->listDocuments($this->buildPath(), $this->getCollectionId());
+        return new CollectionReference($collectionResponse, $this);
     }
 
     public function document($id)
