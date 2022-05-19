@@ -30,7 +30,7 @@ trait ModifiesDocument
 
     public function delete()
     {
-        $this->document = $this->collection->getResource()->delete($this->buildPath($this->id));
+        $this->collection->getResource()->delete($this->buildPath($this->id), ['currentDocument.exists' => true]);
 
         return true;
     }
