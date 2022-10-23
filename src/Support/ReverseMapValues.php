@@ -22,6 +22,15 @@ class ReverseMapValues
         return $values;
     }
 
+    protected function mapBooleanValue($value)
+    {
+        if (is_bool($value)) {
+            return ['booleanValue' => $value];
+        }
+
+        return false;
+    }
+
     protected function mapNumericValue($value)
     {
         if (is_numeric($value)) {
