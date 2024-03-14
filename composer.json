@@ -28,7 +28,7 @@
         "test": "phpunit"
     },
     "require": {
-        "laravel/framework": "^8.0|^9.0|^10.0",
+        "laravel/framework": "^8.0|^9.0|^10.0|^11.0",
         "google/apiclient": "^2.12.1",
         "google/apiclient-services": "^0.246.0"
     },
