@@ -2,6 +2,8 @@
 
 namespace TorMorten\Firestore\Support;
 
+use TorMorten\Firestore\Events\ServiceAccountSet;
+
 class ServiceAccount
 {
     protected static $serviceAccount;
@@ -9,6 +11,8 @@ class ServiceAccount
     public function set($serviceAccount)
     {
         static::$serviceAccount = $serviceAccount;
+
+        event(new ServiceAccountSet($this));
     }
 
     public function get()
